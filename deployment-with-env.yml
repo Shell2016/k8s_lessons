@@ -34,7 +34,14 @@ spec:
         env:
           - name: KEY_ENV_TEST
             value: test_value
+          - name: test1
+#            valueFrom:
+#              secretKeyRef:
+#                name: secret1
+#                key: test1
         envFrom:
+          - secretRef:
+              name: secret1
           - configMapRef:
               name: my-configmap
 ...
