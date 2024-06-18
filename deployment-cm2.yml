@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - image: nginx:1.12
+        name: nginx
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            ephemeral-storage: "1Gi"
+            cpu: 200m
+            memory: 256Mi
+        ports:
+          - containerPort: 80
+#        volumeMounts:
+#          - mountPath: /etc/nginx/conf.d/
+#            name: config
+#      volumes:
+#        - name: config
+#          configMap:
+#            name: my-configmap2
+...
